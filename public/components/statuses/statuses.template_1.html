@@ -1,0 +1,158 @@
+<div class="container-fluid container-cards-pf">
+    <div class="row toolbar-pf">
+        <div class="col-sm-12">
+          
+                <div class="form-group toolbar-pf-filter">
+                    <label class="sr-only" for="filter">Name</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+
+                        </div><!-- /btn-group -->
+                        <input type="text" class="form-control" id="filter" ng-model="$ctrl.query" placeholder="Filter By Name...">
+                    </div><!-- /input-group -->
+                </div>
+                <div class="form-group">
+              
+                    <button class="btn btn-default" type="button" ng-click=" $ctrl.byWeek = !$ctrl.byWeek">By Week</button>
+                    <button class="btn btn-default" type="button">By Person</button>
+                   
+                </div>
+        </div>             
+    </div>     
+</div>
+<div ng-show="$ctrl.byWeek">
+<div class="left" style="width: 50%" >
+    <div ng-repeat="week in $ctrl.weeks  | filter:$ctrl.query" class="list-group list-view-pf list-view-pf-equalized-column left" >
+        <div ng-click="$ctrl.chooseWeek(week.week)" class="list-group-item" >
+            <div class="list-view-pf-main-info">
+                <div class="list-view-pf-left">
+                    <span class="pficon pficon-ok list-view-pf-icon-md list-view-pf-icon-success"></span>
+                </div>
+                <div class="list-view-pf-body">
+                    <div class="list-view-pf-description">
+                        <div class="list-group-item-heading">
+                            {{week.week}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-repeat="person in $ctrl.currentWeek.people  | filter:$ctrl.query" class="list-group list-view-pf right">
+        <div ng-click="$ctrl.choosePerson(person.id)" class="list-group-item" style="height: 30px">
+            <div class="list-view-pf-main-info">
+                <div class="list-view-pf-body">
+                    <div class="list-view-pf-description">
+                        <div class="list-group-item-heading">
+                            <span class="pficon pficon-user" ng-init="p=$ctrl.getUserDetails(person.id)"></span>
+                           {{p.firstName==null?person.id:(p.firstName)}} {{p.lastName==null?"":p.lastName}}
+                        </div>
+                        <div class="list-view-pf-additional-info">
+                            tasks completed:  {{person.goals.length}}
+                        </div>
+                    </div>
+                    <!--        <div class="list-view-pf-additional-info">
+                              <div class="list-view-pf-additional-info-item">
+                                <span class="pficon pficon-screen"></span>
+                                <strong>108</strong> Hosts
+                              </div>
+                              <div class="list-view-pf-additional-info-item">
+                                <span class="pficon pficon-cluster"></span>
+                                <strong>28</strong> Clusters
+                              </div>
+                            </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="right">
+        <div ng-repeat="goal in $ctrl.currentPerson.goals  | filter:$ctrl.query" class="list-group list-view-pf ">
+            <div class="list-group-item" >
+                <div class="list-view-pf-main-info">
+                    <div class="list-view-pf-body">
+                        <div class="list-view-pf-description">
+                            <div class="list-group-item-heading" style="font-size: 100%">
+                                <span class="pficon  pficon-ok"></span>
+                                {{goal.goal}} 
+
+                            </div>
+                        </div>
+                        <!--        <div class="list-view-pf-additional-info">
+                                  <div class="list-view-pf-additional-info-item">
+                                    <span class="pficon pficon-screen"></span>
+                                    <strong>108</strong> Hosts
+                                  </div>
+                                  <div class="list-view-pf-additional-info-item">
+                                    <span class="pficon pficon-cluster"></span>
+                                    <strong>28</strong> Clusters
+                                  </div>
+                                </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="!$ctrl.byWeek">
+    
+    <div >
+    <div ng-repeat="person in $ctrl.persons" class="list-group list-view-pf list-view-pf-equalized-column left" style="width: 30%  ">
+        <div ng-click="$ctrl.choosePersonView(person.id)" class="list-group-item" >
+            <div class="list-view-pf-main-info" ng-init="p=$ctrl.getUserDetails(person.id)">
+                <div class="list-view-pf-left  ">
+<!--                    <span class="pficon pficon-user list-view-pf-icon-md list-view-pf-icon-success"></span>-->
+                    <div  class="photo-thumb pficon pficon-user">
+                        <img src="http://people.brq.redhat.com/photos/pap_wiki/{{person.id}}.jpg" />
+                    </div>
+                </div>
+                <div class="list-view-pf-body" >
+                    <div class="list-view-pf-description">
+                        <div class="list-group-item-heading" >
+                                                      {{p.firstName==null?person.id:(p.firstName)}} {{p.lastName==null?"":p.lastName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div ng-repeat="week in $ctrl.currentPersonView.weeks" class="list-group list-view-pf  right">
+        <div class="list-group-item" >
+            <div class="list-view-pf-main-info">
+                <div class="list-view-pf-body">
+                    <div class="list-view-pf-description">
+                        <div class="list-group-item-heading">
+                         {{week.id}}
+                        </div>
+                        <div class="list-view-pf-additional-info">
+                              <div class="list-view-pf-additional-info-item">
+                                <span class="pficon pficon-info"></span>
+                                <strong class="pf-blue">{{week.goals.length}}</strong> tasks done
+                              </div>
+                        <div class="list-view-pf-additional-info">
+                            <ul ng-repeat="goal in week.goals">
+                                <li><span class="pficon pficon-ok list-view-pf-icon-md list-view-pf-icon-success" />{{goal.goal}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                            
+                             
+                </div>
+            </div>
+        </div>
+    </div>
+</div>   
+
+<script>
+    // Equalize column width
+    $(document).ready(function () {
+        var widest = 0;
+        $('.list-view-pf-equalized-column .list-view-pf-additional-info-item').each(function () {
+            widest = $(this).width() > widest ? $(this).width() : widest;
+        }).width(widest);
+    });
+</script>

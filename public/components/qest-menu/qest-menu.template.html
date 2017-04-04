@@ -1,0 +1,31 @@
+<div ng-controller="NavigationController">
+    <div pf-vertical-navigation items="$ctrl.navigationItems" brand-alt="TomMato QUEST" brand-src="img/QEST_logo.png"
+         has-sub-menus="true" pinnable-menus="true" update-active-items-on-click="true" persistent-secondary="true" >
+        <div>
+            <ul class="nav navbar-nav navbar-right navbar-iconic">           
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span title="Help" class="pficon pficon-help"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Help</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span title="Username" class="pficon pficon-user">[{{$ctrl.username}}]</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a href="#">Preferences</a></li>
+                        <li><a ng-click="$ctrl.logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+

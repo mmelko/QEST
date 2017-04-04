@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="qest">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>QEST</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../bower_components/angular-patternfly/dist/styles/angular-patternfly.min.css" />
+        <link rel="stylesheet" href="../bower_components/patternfly/dist/css/patternfly-additions.min.css"/>
+        <link rel="stylesheet" href="../bower_components/patternfly/dist/css/patternfly.css"/>
+        <link rel="stylesheet" href="style/app.css"/>
+        <link href="bower_components/angular-input-stars-directive/angular-input-stars.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" href="">
+
+        
+        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../bower_components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+        <script src="../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="../bower_components/bootstrap-select/js/bootstrap-select.js"></script>
+        <script src="../bower_components/patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+        <script src="../bower_components/c3/c3.min.js"></script>
+        <script src="../bower_components/d3/d3.min.js"></script>
+        <script src="../bower_components/patternfly/dist/js/patternfly.js"></script>
+      
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js"></script>
+        <script src="../bower_components/angular-route/angular-route.js"></script>
+        <script src="../bower_components/ngstorage/ngStorage.min.js" type="text/javascript"></script>
+        <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="../bower_components/angular-animate/angular-animate.js"></script>
+         <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+      
+        <script src="../bower_components/angular-patternfly/dist/angular-patternfly.js"></script>
+       
+        <script src="bower_components/angular-input-stars-directive/angular-input-stars.js" type="text/javascript"></script>
+         <!--<script src="../bower_components/angular-bootstra"></script>-->
+       
+
+
+        <script src="qest.module.js"></script> 
+        <script src="app.config.js"></script>  
+
+        <script src="components/data-provider/data-provider.module.js"></script>
+
+        <script src="components/qest-menu/qest-menu.module.js"></script>
+        <script src="components/qest-menu/qest-menu.component.js"></script> 
+
+        <script src="components/statuses/statuses.module.js"></script>
+        <script src="components/statuses/statuses.component.js"></script>
+        
+         <script src="components/feedbacks/feedbacks.module.js"></script>
+         <script src="components/feedbacks/feedbacks.component.js"></script>
+        
+        <script src="components/auth/auth.module.js"></script>
+        <script src="components/auth/auth.service.js"></script>
+        <script src="components/auth/auth.component.js"></script>
+
+
+    </head>
+    <body >
+        <div nq-if ="true">
+        <div id="QEST-LAYOUT" class="layout-pf layout-pf-fixed faux-layout">
+            <div id = "contentContainer" class="container-pf-nav-pf-vertical">   
+                <div ng-view class="content-window"> </div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

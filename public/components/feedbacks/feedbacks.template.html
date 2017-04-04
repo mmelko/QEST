@@ -1,0 +1,178 @@
+<div id="includedContent" class="container-fluid container-cards-pf">
+    <div class="col-sm-5">
+        <div class="card-pf">
+            <div class="card-pf-heading feedback-card">
+                <!--                        <select class="selectpicker col-sm-4" id="user" ng-model="$ctrl.feedback.user" ng-change="$ctrl.refresh()">
+                                            <option ng-repeat ="user in $ctrl.associates"  value="{{user.id}}">
+                                            {{user.firstName}} {{user.lastName}}</option>
+                                        </select>-->
+                <div class="dropdown col-sm-9" >
+                    <a  id="dropdownMenu1" data-toggle="dropdown">
+                        <div class="associate">
+                            <img class="photo-icon"  src="{{$ctrl.current.img}}" /> <span class="associate-name" style="font-size: 130%"> {{$ctrl.current.firstName}} {{$ctrl.current.lastName}} - {{$ctrl.current.status}}</span><br/><span></span>
+                        </div>
+
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li ng-repeat ="user in $ctrl.associates"  role="presentation">
+                            <a role="menuitem" ng-click="$ctrl.pick(user.id)" >                             
+                                <img class="pf-icon" src="{{user.img}}" style="width: 25px; height: 25px"/> 
+                                {{user.firstName}} {{user.lastName}}
+                            </a>
+                        </li>      
+                    </ul>
+                </div>
+
+                <div class="dropdown col-sm-3" >
+                    <a  id="dropdownMenu2" data-toggle="dropdown">                       
+                        Quarter {{$ctrl.feedback.quarter}}
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                        <li role="presentation">
+                            <a role="menuitem" ng-click="$ctrl.feedback.quarter = 'FY17Q3';$ctrl.pick(null);" >FY 2017:Q3</a>
+                        </li>   
+                        <li role="presentation">
+                            <a role="menuitem" ng-click="$ctrl.feedback.quarter = 'FY17Q4';$ctrl.pick(null);" >FY 2017:Q4</a>
+                        </li>   
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-pf-body" ng-dblclick="$ctrl.edit = !$ctrl.edit" >
+                <div ng-if="$ctrl.edit === true">
+                    <div class="form-group row" ng-repeat = "q in $ctrl.labels">
+                        <div class="col-sm-10">
+                            <span class=" control-label  feedback-questions" >{{$ctrl.feedback.criteria[$index].id + 1}}. {{q}}</span>
+                            <textarea rows="2" ng-model="$ctrl.feedback.criteria[$index].comment" type="text" class="form-control"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <span class=" control-label">score</span>         
+                            <input type="text" ng-model="$ctrl.feedback.criteria[$index].value" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" ng-click="$ctrl.addFeedback()">Add</button>
+
+                        <button ng-click="$ctrl.edit = !$ctrl.edit" class="btn btn-primary">edit</button>
+
+                    </div>
+                </div>
+
+                <div  ng-if="$ctrl.edit === false" >
+                    <div class="form-group row" ng-repeat = "q in $ctrl.labels">
+                        <div class="col-sm-10">
+                            <span class=" feedback-questions" >{{$ctrl.feedback.criteria[$index].id + 1}}. {{q}}</span>
+                            <p class="feedback-content"> {{$ctrl.feedback.criteria[$index].comment}}</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <span class="feedback-value" > {{$ctrl.feedback.criteria[$index].value}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="$ctrl.edit = !$ctrl.edit" class="btn btn-primary">edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card-pf">
+            <div class="card-pf-heading pf-blue">
+
+                <div class="dropdown" >
+                    <a id="dropdownMenu3" data-toggle="dropdown" ng-init="$ctrl.statusesView = false">                       
+                        <div class="associate" ng-if="$ctrl.statusesView === false">
+                            <img class="photo-icon" src="{{$ctrl.findUser($ctrl.compareWith).img}}" />                    
+                            <span class="associate-name"> {{$ctrl.findUser($ctrl.compareWith).firstName}} {{$ctrl.findUser($ctrl.compareWith).lastName}} </span>
+                        </div>
+                        <h3 ng-if="$ctrl.statusesView === true">Statuses</h3>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu3">
+                        <li role="presentation">
+                            <a role="menuitem" ng-click="$ctrl.statusesView = false;" >Associate</a>
+                        </li>   
+                        <li role="presentation">
+                            <a role="menuitem" ng-click="$ctrl.statusesView = true" >Starred statuses</a>
+                        </li>   
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a  id="dropdownMenu4" data-toggle="dropdown">                       
+                        Quarter {{$ctrl.compareQuarter}}
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
+                        <li role="presentation">
+                            <a role="menuitem" ng-click="$ctrl.compareQuarter = 'FY17Q3';$ctrl.compare($ctrl.comparedFeedback.user)">FY 2017:Q3</a>
+                        </li>   
+                        <li role="presentation">
+                            <a role="menuitem" ng-click="$ctrl.compareQuarter = 'FY17Q4';$ctrl.compare($ctrl.comparedFeedback.user)">FY 2017:Q4</a>
+                        </li>   
+                    </ul>
+                </div>
+
+            </div>
+            <div class="card-pf-body">
+                <div ng-if="$ctrl.statusesView === false" class="form-group row" ng-repeat = "q in $ctrl.labels">
+                    <div class="col-sm-9">
+                        <span  ng-click="$ctrl.show[$index] = !$ctrl.show[$index]"  class=" feedback-questions" data-close="true">{{$ctrl.comparedFeedback.criteria[$index].id + 1}}. {{q}}</span>
+                        <p class="feedback-content" ng-if="$ctrl.show[$index] === true"> {{$ctrl.comparedFeedback.criteria[$index].comment}}</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="feedback-value" > {{$ctrl.comparedFeedback.criteria[$index].value}}</span>
+                    </div>
+
+                </div>
+
+                <div class="status-view" ng-if="$ctrl.statusesView === true">
+                    <div ng-repeat="week in $ctrl.statuses.weeks" >                    
+                        <div ng-repeat="goal in week.goals" ng-if="goal.value > 0" >
+                            <div class="col-sm-9 status">
+                                <span class="goal pficon pficon-ok list-view-pf-icon-md  "></span>  
+                                {{goal.goal}}
+                            </div>
+                            <div class="col-sm-3">
+                                <h3>{{goal.value}}</h3>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3" >
+        <div class="card-pf ">
+            <div class="card-pf-heading pf-blue">
+                <div class="dropdown" >
+                    <a  id="dropdownMenu1" data-toggle="dropdown">
+                        Ranks
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">  <a role="menuitem" ng-click="$ctrl.changeRank(-1)"> Total </a> </li>
+                        <li ng-repeat ="label in $ctrl.labels"  role="presentation">
+
+                            <a role="menuitem" ng-click="$ctrl.changeRank($index)" style="overflow:hidden;
+                               text-overflow:ellipsis; width: 200px;">                             
+                                {{label}}
+                            </a>
+                        </li>      
+                    </ul>
+                </div>
+            </div>
+            <div class="card-pf-body">
+                <ul style="list-style-type: none">
+                    <li  ng-repeat="rank in $ctrl.ladder| orderBy:'-value'" >
+
+                        <div class="associate" ng-click="$ctrl.compare(rank.id)">
+                            <img class="photo-icon" src="{{$ctrl.findUser(rank.id).img}}" />                    
+                            <span class="associate-name"> {{$ctrl.findUser(rank.id).firstName}} {{$ctrl.findUser(rank.id).lastName}} </span> <span style="right: 30px;" class="feedback-value">{{rank.value}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
