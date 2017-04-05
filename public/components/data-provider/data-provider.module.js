@@ -6,7 +6,7 @@ angular.module('dataProvider')
             this.quarterlyData = [];
             self = this;
             this.dataPath="data";
-            this.dataApi="http://localhost:5555/api/"
+            this.dataApi="http://localhost:5555/api/";
 
        return {
            
@@ -34,6 +34,9 @@ angular.module('dataProvider')
                     return $http.post(self.dataApi+"statuses/"+quarter+"/"+id, {weeks:statuses});
                 },
                 
+                exportQuarter: function(quarter) {
+                   return $http.get(self.dataApi+"export/"+quarter+"/"); 
+                },
                 //feedbacks
                 addFeedback: function(data) {
                     return $http.post(self.dataApi+"feedbacks/",data);
@@ -50,8 +53,11 @@ angular.module('dataProvider')
                 },
                 getLogged: function () {
                     return $localStorage.username;
+                },
+                getDownloadLink: function (quarter){
+                    return self.dataApi+"export/"+quarter+"?token="+$localStorage.token;
                 }
-
+                
             };
         });
  
