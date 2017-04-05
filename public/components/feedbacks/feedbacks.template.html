@@ -2,10 +2,6 @@
     <div class="col-sm-5">
         <div class="card-pf">
             <div class="card-pf-heading feedback-card">
-                <!--                        <select class="selectpicker col-sm-4" id="user" ng-model="$ctrl.feedback.user" ng-change="$ctrl.refresh()">
-                                            <option ng-repeat ="user in $ctrl.associates"  value="{{user.id}}">
-                                            {{user.firstName}} {{user.lastName}}</option>
-                                        </select>-->
                 <div class="dropdown col-sm-9" >
                     <a  id="dropdownMenu1" data-toggle="dropdown">
                         <div class="associate">
@@ -14,12 +10,15 @@
 
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                         <li role="presentation">
+                             <a href="{{$ctrl.getExportLink()}}" role="presentation" >Export feedbacks to txt</a>
+                        </li>
                         <li ng-repeat ="user in $ctrl.associates"  role="presentation">
                             <a role="menuitem" ng-click="$ctrl.pick(user.id)" >                             
                                 <img class="pf-icon" src="{{user.img}}" style="width: 25px; height: 25px"/> 
                                 {{user.firstName}} {{user.lastName}}
                             </a>
-                        </li>      
+                        </li>                 
                     </ul>
                 </div>
 
@@ -36,6 +35,7 @@
                         </li>   
                     </ul>
                 </div>
+               
             </div>
 
             <div class="card-pf-body" ng-dblclick="$ctrl.edit = !$ctrl.edit" >
@@ -137,7 +137,6 @@
 
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -63,6 +63,9 @@ angular.module('feedbacks').
                         self.initLadder();
                     });
                 };
+                
+              
+                this.getExportLink = function () {return dataProvider.getDownloadLink(self.feedback.quarter)};
 
                 this.pick = function (user) {
                     if (!user)
