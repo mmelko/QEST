@@ -14,7 +14,7 @@ angular.module('qestMenu')
                 });
                 
                 this.username = $localStorage.username;
-                
+                this.dataProvider = dataProvider;
                 this.logout = function () {
                     authService.logout();
                     $location.path('/login');

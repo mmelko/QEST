@@ -8,8 +8,34 @@ angular.module('dataProvider')
             this.dataPath="data";
             this.dataApi="http://localhost:5555/api/";
 
-       return {
+            //PoC quarters 
+            this.quarters = [
+                {
+                    id:"FY16",
+                    name: "FY 2016"
+                }, 
+                {
+                    id:"FY17Q1",
+                    name: "FY 2017:Q1"
+                },
+                {
+                    id:"FY17Q2",
+                    name: "FY 2017:Q2"
+                },
+                {
+                    id:"FY17Q3",
+                    name: "FY 22017:Q3"},
+                {
+                    id:"FY17Q4", 
+                    name: "FY 2017:Q4"},
+                {
+                    id:"FY18Q1",
+                    name: "FY 2018:Q1"
+            },
+            ];
+            this.quarters.reverse();
            
+       return {
                 getMenu: function(){
                   return $http.get(self.dataApi+'menu');  
                 },
@@ -56,8 +82,22 @@ angular.module('dataProvider')
                 },
                 getDownloadLink: function (quarter){
                     return self.dataApi+"export/"+quarter+"?token="+$localStorage.token;
-                }
+                },
+                getQuarters: function (){
+                    return self.quarters;
+                },
+                getCurrentQuarter: function() {
+                    return  self.quarters[0].id;
+                }, 
                 
+                getRole: function() {
+                    return $localStorage.role;
+                },
+                viewedQuarter : self.quarters[0].id,
+                refresh : function() {
+                    // do nothing
+                }
+                 
             };
         });
  

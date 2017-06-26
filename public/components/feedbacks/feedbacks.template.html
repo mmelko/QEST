@@ -22,18 +22,10 @@
                     </ul>
                 </div>
 
-                <div class="dropdown col-sm-3" >
+                <div class="col-sm-3" >
                     <a  id="dropdownMenu2" data-toggle="dropdown">                       
-                        Quarter {{$ctrl.feedback.quarter}}
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.feedback.quarter = 'FY17Q3';$ctrl.pick(null);" >FY 2017:Q3</a>
-                        </li>   
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.feedback.quarter = 'FY17Q4';$ctrl.pick(null);" >FY 2017:Q4</a>
-                        </li>   
-                    </ul>
+                         {{$ctrl.feedback.quarter}}
+                    </a>                  
                 </div>
                
             </div>
@@ -79,7 +71,6 @@
     <div class="col-sm-4">
         <div class="card-pf">
             <div class="card-pf-heading pf-blue">
-
                 <div class="dropdown" >
                     <a id="dropdownMenu3" data-toggle="dropdown" ng-init="$ctrl.statusesView = false">                       
                         <div class="associate" ng-if="$ctrl.statusesView === false">
@@ -93,24 +84,10 @@
                             <a role="menuitem" ng-click="$ctrl.statusesView = false;" >Associate</a>
                         </li>   
                         <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.statusesView = true" >Starred statuses</a>
+                            <a role="menuitem" ng-click="$ctrl.statusesView = true" >{{$ctrl.current.id}}}'s statuses</a>
                         </li>   
                     </ul>
                 </div>
-                <div class="dropdown">
-                    <a  id="dropdownMenu4" data-toggle="dropdown">                       
-                        Quarter {{$ctrl.compareQuarter}}
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.compareQuarter = 'FY17Q3';$ctrl.compare($ctrl.comparedFeedback.user)">FY 2017:Q3</a>
-                        </li>   
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.compareQuarter = 'FY17Q4';$ctrl.compare($ctrl.comparedFeedback.user)">FY 2017:Q4</a>
-                        </li>   
-                    </ul>
-                </div>
-
             </div>
             <div class="card-pf-body">
                 <div ng-if="$ctrl.statusesView === false" class="form-group row" ng-repeat = "q in $ctrl.labels">

@@ -8,5 +8,6 @@ angular.module('auth',[
     'ngResource',
     'ngStorage',
     'patternfly',
-    'dataProvider'
+    'dataProvider',
+    'angular-jwt'
     ]);

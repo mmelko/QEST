@@ -2,15 +2,17 @@
     <div pf-vertical-navigation items="$ctrl.navigationItems" brand-alt="TomMato QUEST" brand-src="img/QEST_logo.png"
          has-sub-menus="true" pinnable-menus="true" update-active-items-on-click="true" persistent-secondary="true" >
         <div>
-            <ul class="nav navbar-nav navbar-right navbar-iconic">           
-                <li class="dropdown">
+            <ul class="nav navbar-nav navbar-right navbar-iconic">       
+                <li>
                     <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span title="Help" class="pficon pficon-help"></span>
+                        <span title="Help" class="pficon pficon-help">{{$ctrl.dataProvider.viewedQuarter}}</span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">About</a></li>
+                        
+                        <li ng-repeat="q in $ctrl.dataProvider.getQuarters()">
+                            <a ng-click="$ctrl.dataProvider.viewedQuarter = q.id; $ctrl.dataProvider.refresh();">{{q.name}}</a>
+                            </li>
                     </ul>
                 </li>
                 <li class="dropdown">

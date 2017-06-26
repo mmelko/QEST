@@ -18,31 +18,12 @@
                 <option class="btn btn-default" value="task"> By Task</option>
             </select>              
 
-             <div class="dropdown col-sm-3" >
-                    <a  id="dropdownMenu2" data-toggle="dropdown">                       
-                        Quarter {{$ctrl.feedback.quarter}}
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2" ng-click="$ctrl.choosePersonView()">
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.quarter = 'FY16';" >FY 2016</a>
-                        </li>  
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.quarter = 'FY17Q1';" >FY 2017:Q1</a>
-                        </li>  
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.quarter = 'FY17Q2';" >FY 2017:Q2</a>
-                        </li>  
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.quarter = 'FY17Q3';" >FY 2017:Q3</a>
-                        </li>   
-                        <li role="presentation">
-                            <a role="menuitem" ng-click="$ctrl.quarter = 'FY17Q4';" >FY 2017:Q4</a>
-                        </li>   
-                    </ul>
-                </div>         
-            <input type="checkbox" value="false">Not filled</input>
+             <div class="col-sm-3" >
+                    <a>                       
+                    {{$ctrl.dataProvider.viewedQuarter}}
+                    </a>                   
+                </div>                    
             <a class="btn" ng-click="$ctrl.saveChanges()">Save</a>
-
             <input-stars max="3" ng-model="$ctrl.starred" ></input-stars>
 
         </div>     
@@ -106,7 +87,7 @@
         </div>-->
 
     <div ng-if="$ctrl.view == 'person'">
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="height: 350vh" ng-init="$ctrl.choosePersonView($ctrl.dataProvider.getLogged())">
             <div ng-repeat="person in $ctrl.associates| filter:$ctrl.query" class="list-group list-view-pf list-view-pf-equalized-column" >
                 <div ng-click="$ctrl.choosePersonView(person.id)" class="list-group-item" >
                     <div class="list-view-pf-main-info" ng-init="p = $ctrl.getUserDetails(person.id)">

@@ -1,14 +1,23 @@
 angular.module('statuses')
         .component('statuses', {
-            templateUrl: 'components/statuses/statuses.template.html',
+            templateUrl: function($element, $attrs) {
+                var templates = {
+                    'admin' :'components/statuses/statuses.template.html',
+                    'user':'components/statuses/statuses-user.template.html',
+                }
+                console.log("using "+$attrs.template +"template");
+                return templates[$attrs.template];
+            },
             controller: ['$filter', 'dataProvider', (function StatusesController($filter, dataProvider) {
                     var self = this;
                     this.view = "person";
                     this.query;
                     this.temp;
                     this.currentEmpId = dataProvider.getLogged();
-                    this.quarter = 'FY17Q4';
+                    
                     this.starred=0;
+                    this.dataProvider = dataProvider;
+                    
 
                     dataProvider.getAssociates().query(function (users) {
                         self.associates = users;
@@ -19,7 +28,7 @@ angular.module('statuses')
                         self.currentStatusWeek = $filter('filter')(this.statusWeeks, {week: weekId}, true)[0];
                     };
                     this.saveChanges = function () {
-                      dataProvider.saveStatusValues(self.statuses,self.quarter,self.currentEmpId).success(function (res){
+                      dataProvider.saveStatusValues(self.statuses,dataProvider.viewedQuarter,self.currentEmpId).success(function (res){
                           console.log('saved');
                       }); 
                     };
@@ -31,13 +40,14 @@ angular.module('statuses')
                     this.choosePersonView = function (personId) {
                         self.show=null;
                         if (personId)
-                        self.currentEmpId = personId;
+                            self.currentEmpId = personId;
                         self.reload();
                     };
 
+                    dataProvider.refresh = this.choosePersonView;
                     this.reload = function (quarter) {
                         console.log("reloading");
-                        dataProvider.getStatuses().get({'id': self.currentEmpId, 'quarter': self.quarter}, function (res) {
+                        dataProvider.getStatuses().get({'id': self.currentEmpId, 'quarter': dataProvider.viewedQuarter}, function (res) {
                             self.statuses = res;
                          
                         });
