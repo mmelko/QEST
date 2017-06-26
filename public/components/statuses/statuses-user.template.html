@@ -1,0 +1,79 @@
+<div class="container-fluid container-cards-pf">
+    <div class="row toolbar-pf">
+        <div class="col-sm-12">
+
+            <div class="form-group toolbar-pf-filter">
+                <label class="sr-only" for="filter">Name</label>
+                <div class="input-group">
+                    <div class="input-group-btn">
+
+                    </div><!-- /btn-group -->
+                    <input type="text" class="form-control" id="filter" ng-model="$ctrl.query" placeholder="Filter By Name...">
+                </div><!-- /input-group -->
+            </div>
+   
+             <div class="dropdown col-sm-3" >
+                    <a  id="dropdownMenu2" data-toggle="dropdown">                       
+                    {{$ctrl.dataProvider.viewedQuarter}}
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2" ng-click="$ctrl.choosePersonView()" >
+                        <li role="presentation" ng-repeat="q in $ctrl.dataProvider.getQuarters()">
+                            <a role="menuitem" ng-click="$ctrl.quarter = q.id;" >{{q.name}}</a>
+                        </li>                  
+                    </ul>
+                </div>                    
+        </div>     
+    </div>
+    
+    <div >
+        <div class="col-sm-3">
+            <div ng-repeat="person in $ctrl.associates" class="list-group list-view-pf list-view-pf-equalized-column" style="height: 170vh" >
+                <div ng-init="$ctrl.choosePersonView(person.id)" class="list-group-item" >
+                    <div class="list-view-pf-main-info" ng-init="p = $ctrl.getUserDetails(person.id)">
+                        <div class="list-view-pf-left  ">
+                            <!--                    <span class="pficon pficon-user list-view-pf-icon-md list-view-pf-icon-success"></span>-->
+                            <div  class=" associate" style="  border-radius: 15%;">
+                                <img class="photo-thumb" src="{{person.img}}" />
+                            </div>
+                        </div>
+                        <div class="list-view-pf-body" >
+                            <div class="list-view-pf-description">
+                                <div class="list-group-item-heading" >
+                                    <a href="">{{p.firstName==null?person.id:(p.firstName)}} {{p.lastName==null?"":p.lastName}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-repeat="week in $ctrl.statuses.weeks| filter:$ctrl.query" class="list-group list-view-pf col-sm-19 " ng-show="$ctrl.hasStarred(week)" ng-init="weekIndex = $index" >
+            <div class="list-group-item"  >
+                <div class="list-view-pf-main-info">
+                    <div class="list-view-pf-body">
+                        <div class="list-view-pf-description">
+                            <div class="list-group-item-heading col-sm-3">
+                                {{week.week}} </br>
+                                <strong class="pf-blue feedback-value" >{{week.goals.length}}</strong> tasks done
+                            </div>
+
+                            <div class="list-view-pf-additional-info col-sm-9">
+
+                                <div class=col-sm-12 ng-repeat="goal in week.goals" ng-init="goalIndex = $index"  ng-if="$ctrl.starred <= goal.value" ng-click="$ctrl.show[weekIndex][goalIndex] = !$ctrl.show[weekIndex][goalIndex] ">
+                                                                     
+                                            <div class="col-sm-9 status">
+                                                <span class="goal pficon pficon-ok list-view-pf-icon-md  "/>  
+                                                {{goal.goal}}
+                                            </div>
+                                           
+                                                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

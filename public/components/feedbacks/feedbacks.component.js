@@ -11,11 +11,11 @@ angular.module('feedbacks').
                 var criteria = [];
                 this.comparedFeedback;
                 this.compareWith = dataProvider.getLogged();
-                this.compareQuarter='FY17Q3';
                 this.ladder = [];
                 this.ladderCategory = -1;
                 this.associates = [];
                 this.statuses;
+                this.dataProvider = dataProvider;
 
                 this.initFeedback = function () {
                     var criteria = []
@@ -42,7 +42,7 @@ angular.module('feedbacks').
 
                 this.feedback = {
                     user: dataProvider.getLogged(),
-                    quarter: "FY17Q4",
+                quarter: dataProvider.getCurrentQuarter(),
                     final: false,
                     criteria: this.initFeedback()
                 };
@@ -53,7 +53,7 @@ angular.module('feedbacks').
                     self.current = response[0];
                 });
                 this.initLadder = function () {
-                    return dataProvider.getFeedbackLadder(self.feedback.quarter, self.ladderCategory).success(function (res) {
+                    return dataProvider.getFeedbackLadder(dataProvider.viewedQuarter, self.ladderCategory).success(function (res) {
                         self.ladder = res;
                     });
                 };
@@ -100,7 +100,7 @@ angular.module('feedbacks').
 
                 this.compare = function (compare) {
                     self.compareWith = compare;
-                    dataProvider.getFeedback(self.compareWith, self.compareQuarter).success(function (resp) {
+                    dataProvider.getFeedback(self.compareWith, dataProvider.viewedQuarter).success(function (resp) {
                         if (resp.length > 0) {
                             self.comparedFeedback = resp[0];
 
@@ -119,12 +119,20 @@ angular.module('feedbacks').
                     self.ladderCategory = index;
                     self.initLadder();
                 };
+                dataProvider.refresh = function() {
+                     self.initLadder();
+                    self.compare(self.comparedFeedback.user);
+                    
+                };
+                this.pick(dataProvider.getLogged());
             }
         ])
         .component('feedbacks', {
             templateUrl: 'components/feedbacks/feedbacks.template.html',
             controller: 'FeedbackCtrl'
         });
+
+        
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

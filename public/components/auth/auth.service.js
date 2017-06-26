@@ -1,6 +1,6 @@
 'use strict';
 angular.module('auth')
-        .factory('authService', function ($http, $q, $httpParamSerializerJQLike,$localStorage) {
+        .factory('authService', function (jwtHelper,$http, $q, $httpParamSerializerJQLike,$localStorage) {
             return {
                 login: function (username, password) {
                     return $http({
@@ -13,6 +13,7 @@ angular.module('auth')
                     }).success(function(resp){
                         $localStorage.token=resp.token;    
                         $localStorage.username=username;
+                        $localStorage.role=jwtHelper.decodeToken(resp.token).role;
                     });
                 },
                 logout: function() {

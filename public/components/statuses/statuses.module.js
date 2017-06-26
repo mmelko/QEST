@@ -7,6 +7,7 @@
 angular.module('statuses',[
     'patternfly',
     'dataProvider',
-    'angular-input-stars'
+    'angular-input-stars',
+   
     ]);
 

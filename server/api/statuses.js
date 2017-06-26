@@ -26,6 +26,13 @@ module.exports = {
                 console.log(err);
             }
            
+            if (req.decoded.role ==='user'){
+            for (var i = 0;i<res.weeks.length;i++){
+               for (var j = 0;j<res.weeks[i].goals.length;j++){
+                res.weeks[i].goals[j].value=0;
+                }
+            }
+            }
             resp.status(200).json(res);
         });
     },

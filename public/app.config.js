@@ -1,7 +1,8 @@
 angular.
         module('qest').
-        config(['$locationProvider', '$routeProvider', '$httpProvider',
-            function config($locationProvider, $routeProvider, $httpProvider) {
+        config(['$locationProvider', '$routeProvider', '$httpProvider','$localStorageProvider',
+            function config($locationProvider, $routeProvider, $httpProvider,$localStorageProvider) {
+                
                 $locationProvider.hashPrefix('!');
                 var menuTemplate = " <qest-menu></qest-menu>"
                 $routeProvider.
@@ -9,7 +10,7 @@ angular.
                             template: '<auth></auth>'
                         }).                    
                         when('/statuses', {
-                            template: menuTemplate + '<statuses></statuses>'
+                            template: menuTemplate + '<statuses template="'+$localStorageProvider.get('role')+'"></statuses>'
                         }).
                         when('/bonuses', {
                             template: menuTemplate + '<bonuses></bonuses>'
@@ -32,6 +33,8 @@ angular.
                             'responseError': function (response) {
                                 if (response.status === 403) {
                                     delete $localStorage.token;
+                                    delete $localStorage.username;
+                                    delete $localStorage.role;
                                     $location.path('/login');
                                 }
                                 return $q.reject(response);
