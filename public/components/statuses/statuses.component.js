@@ -4,9 +4,15 @@ angular.module('statuses')
                 var templates = {
                     'admin' :'components/statuses/statuses.template.html',
                     'user':'components/statuses/statuses-user.template.html',
+                    'null': 'components/statuses/statuses-user.template.html'
                 }
-                console.log("using "+$attrs.template +"template");
-                return templates[$attrs.template];
+                if($attrs.template){
+                    console.log("using "+$attrs.template +"template");
+                    return templates[$attrs.template];
+                }
+                else return templates['user'];
+           
+                
             },
             controller: ['$filter', 'dataProvider', (function StatusesController($filter, dataProvider) {
                     var self = this;
