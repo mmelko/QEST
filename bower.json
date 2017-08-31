@@ -17,5 +17,8 @@
     "ngstorage": "^0.3.11",
     "js-sha256": "^0.5.0",
     "angular-input-stars-directive": "angular-input-stars#^1.6.3"
+  },
+  "resolutions": {
+    "jquery": "~3.2.1"
   }
 }
