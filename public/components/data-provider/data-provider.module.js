@@ -6,7 +6,7 @@ angular.module('dataProvider')
             this.quarterlyData = [];
             self = this;
             this.dataPath="data";
-            this.dataApi="http://localhost:5555/api/";
+            this.dataApi="/api/";
 
             //PoC quarters 
             this.quarters = [
