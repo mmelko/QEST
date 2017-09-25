@@ -9,6 +9,10 @@ module.exports = function (app, jwt) {
     var api = express.Router();
 
     //auth
+    api.route('/').get(function (req, res) {
+        res.status(200).json('QE Status Tracker');
+    });
+
     api.route('/authenticate/').post(auth.authenticate(jwt, app.get('superSecret')));
     api.use(auth.verifyToken(jwt, app.get('superSecret')));
     
