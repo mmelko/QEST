@@ -37,6 +37,10 @@ angular.module('dataProvider')
             {
                 id: "FY18Q2",
                 name: "FY 2018:Q2"
+            },
+            {
+                id: "FY18Q3",
+                name: "FY 2018:Q3"
             }
         ];
         this.quarters.reverse();
