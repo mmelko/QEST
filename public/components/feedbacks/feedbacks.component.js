@@ -5,9 +5,11 @@ angular.module('feedbacks').
                 this.edit = false;
                 this.current;
 
-                this.labels = ["How would you rate the quality and timeliness of his/her tasks?", "How would you rate the level of his/her technical knowledge?",
-                    "How would you rate the level of his/her engagement in discussions,planning, problem solving?", "Is he/she interested in solving problems beyond the scope of his/her duties?",
-                    "If there was something you didn't like in the previous performance review, did he/she improve that area?", "Is there something you want him/her to improve?", "Other + / - "];
+                this.labels = ["Techlead/manager rating", 
+                    "Keep: ",
+                    "More:", 
+                    "Less:",
+                    "Start", "Stop", "Statuses rating:"];
                 var criteria = [];
                 this.comparedFeedback;
                 this.compareWith = dataProvider.getLogged();
