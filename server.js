@@ -27,6 +27,8 @@ var dataApi = require('./server/api/api.js')(qest, jwt);
 
 //frontend
 qest.use(express.static(__dirname + "/public/"));
+qest.use(express.static(__dirname + "/node_modules/"));
+
 
 //server start
 var port = process.env.PORT || 5555;
